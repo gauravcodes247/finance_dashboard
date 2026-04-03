@@ -1,0 +1,27 @@
+
+@font-face {
+  font-family: Poppins;
+  src: url("/fonts/Poppins-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: Jakarta;
+  src: url("/fonts/Jakarta-Regular.ttf") format("truetype");
+}
+
+@import "tailwindcss";
+
+
+
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme{
+  --color-primary: #e5e7eb;
+  --color-primary-dark: ##4338ca;
+  --font-poppins: Poppins, sans-serif;
+  --font-jakarta: Jakarta, sans-serif;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
