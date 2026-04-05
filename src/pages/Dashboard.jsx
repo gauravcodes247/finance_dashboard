@@ -25,6 +25,29 @@ const [newTxn, setNewTxn] = useState({
 const [showForm, setShowForm] = useState(false);
 
 // console.log(searchTerm)
+const exportToCSV = () => {
+  const headers = ["Category", "Amount", "Type", "Date"];
+
+  const rows = filteredTransactions.map((txn) => [
+    txn.category,
+    txn.amount,
+    txn.type,
+    new Date(txn.date).toLocaleDateString(),
+  ]);
+
+  const csvContent =
+    "data:text/csv;charset=utf-8," +
+    [headers, ...rows]
+      .map((row) => row.join(","))
+      .join("\n");
+
+  const link = document.createElement("a");
+  link.href = encodeURI(csvContent);
+  link.download = `transactions-${Date.now()}.csv`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
 
 
 
@@ -133,6 +156,12 @@ const handleAdd = () => {
                     <option value="income">Income</option>
                     <option value="expense">Expense</option>
                 </select>
+                <button
+  onClick={exportToCSV}
+  className="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-xl mb-4"
+>
+  Export CSV
+</button>
                 {user.role === "admin" && (
                 <button
   className='bg-[#7B60DA] hover:bg-[#6a50c0] text-white font-bold py-2 px-4 rounded-xl mb-4'
